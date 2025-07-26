@@ -1,0 +1,69 @@
+/* -------------------------------- Swiper Styles for Flow2ProductResults -------------------------------- */
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.swiper-slide-shadow-left,
+.swiper-slide-shadow-right {
+  background-image: linear-gradient(
+    to left,
+    rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+/* Timer background styles */
+.timer-background {
+  background: linear-gradient(
+    90deg,
+    rgba(240, 253, 244, 0.8) 0%,
+    rgba(220, 252, 231, 0.6) 50%,
+    rgba(187, 247, 208, 0.4) 100%
+  );
+  transition: width 0.05s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: width;
+  transform: translateZ(0);
+  opacity: 1;
+  visibility: visible;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.timer-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(34, 197, 94, 0.05) 0%,
+    rgba(34, 197, 94, 0.02) 100%
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.timer-background:hover::before {
+  opacity: 1;
+}
+/* -------------------------------- Swiper Styles for Flow2ProductResults -------------------------------- */

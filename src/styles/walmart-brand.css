@@ -1,0 +1,171 @@
+/* -------------------------------- Walmart Brand Utilities -------------------------------- */
+
+/* Official Walmart brand utility classes */
+.walmart-true-blue {
+  color: #0071ce;
+}
+
+.walmart-spark-yellow {
+  color: #c2e1ff;
+}
+
+.walmart-bentonville-blue {
+  color: #004f9f;
+}
+
+.walmart-everyday-blue {
+  color: #4891dc;
+}
+
+.walmart-sky-blue {
+  color: #c7e3f9;
+}
+
+.bg-walmart-true-blue {
+  background-color: #0071ce;
+}
+
+.bg-walmart-spark-yellow {
+  background-color: #c2e1ff;
+}
+
+.bg-walmart-bentonville-blue {
+  background-color: #004f9f;
+}
+
+.bg-walmart-everyday-blue {
+  background-color: #4891dc;
+}
+
+.bg-walmart-sky-blue {
+  background-color: #c7e3f9;
+}
+
+.border-walmart-true-blue {
+  border-color: #0071ce;
+}
+
+.border-walmart-spark-yellow {
+  border-color: #c2e1ff;
+}
+
+.border-walmart-bentonville-blue {
+  border-color: #004f9f;
+}
+
+.border-walmart-everyday-blue {
+  border-color: #4891dc;
+}
+
+.border-walmart-sky-blue {
+  border-color: #c7e3f9;
+}
+
+/* Logo color utilities */
+.text-walmart-logo-primary {
+  color: #0071ce; /* Walmart True Blue for logo */
+}
+
+.text-walmart-logo-secondary {
+  color: #c2e1ff; /* Walmart Spark Yellow for logo */
+}
+
+.bg-walmart-logo-primary {
+  background-color: #0071ce; /* Walmart True Blue for logo background */
+}
+
+.bg-walmart-logo-secondary {
+  background-color: #c2e1ff; /* Walmart Spark Yellow for logo background */
+}
+
+/* Dark mode variants - colors remain consistent for brand recognition */
+.dark .walmart-true-blue {
+  color: #0071ce;
+}
+
+.dark .walmart-spark-yellow {
+  color: #c2e1ff;
+}
+
+.dark .walmart-bentonville-blue {
+  color: #004f9f;
+}
+
+.dark .walmart-everyday-blue {
+  color: #4891dc;
+}
+
+.dark .walmart-sky-blue {
+  color: #c7e3f9;
+}
+
+.dark .bg-walmart-true-blue {
+  background-color: #0071ce;
+}
+
+.dark .bg-walmart-spark-yellow {
+  background-color: #c2e1ff;
+}
+
+.dark .bg-walmart-bentonville-blue {
+  background-color: #004f9f;
+}
+
+.dark .bg-walmart-everyday-blue {
+  background-color: #4891dc;
+}
+
+.dark .bg-walmart-sky-blue {
+  background-color: #c7e3f9;
+}
+
+.dark .border-walmart-true-blue {
+  border-color: #0071ce;
+}
+
+.dark .border-walmart-spark-yellow {
+  border-color: #c2e1ff;
+}
+
+.dark .border-walmart-bentonville-blue {
+  border-color: #004f9f;
+}
+
+.dark .border-walmart-everyday-blue {
+  border-color: #4891dc;
+}
+
+.dark .border-walmart-sky-blue {
+  border-color: #c7e3f9;
+}
+
+.dark .text-walmart-logo-primary {
+  color: #0071ce; /* Walmart True Blue for logo */
+}
+
+.dark .text-walmart-logo-secondary {
+  color: #c2e1ff; /* Walmart Spark Yellow for logo */
+}
+
+.dark .bg-walmart-logo-primary {
+  background-color: #0071ce; /* Walmart True Blue for logo background */
+}
+
+.dark .bg-walmart-logo-secondary {
+  background-color: #c2e1ff; /* Walmart Spark Yellow for logo background */
+}
+
+/* Sidebar hover effect for light and dark themes */
+.sidebar-hover {
+  background-color: rgba(0, 113, 206, 0.08); /* #0071ce with 8% opacity */
+}
+.dark .sidebar-hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.08
+  ); /* white with 8% opacity for dark mode */
+}
+
+/* -------------------------------- Walmart Brand Utilities -------------------------------- */
