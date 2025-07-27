@@ -136,7 +136,7 @@ We welcome contributions! Focus areas include voice recognition improvements, AI
 
 ## License
 
-[MIT LICENSE](LICENSE)
+[APACHE 2.0 LICENSE](LICENSE)
 
 ---
 
