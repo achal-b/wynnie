@@ -1,8 +1,27 @@
 import { NextRequest, NextResponse } from "next/server";
+import { createClientForMiddleware } from '@/lib/supabase-server';
 
-export function middleware(request: NextRequest) {
-  // Create response
-  const response = NextResponse.next();
+export async function middleware(request: NextRequest) {
+  // Handle Supabase auth
+  const { supabase, response } = createClientForMiddleware(request);
+
+  // Refresh session if expired
+  await supabase.auth.getUser();
+
+  // Check if user is authenticated for protected routes
+  const pathname = request.nextUrl.pathname;
+  const isAuthRoute = pathname.startsWith('/auth/');
+  const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/profile');
+
+  if (isProtectedRoute && !isAuthRoute) {
+    const { data: { user } } = await supabase.auth.getUser();
+    
+    if (!user) {
+      const redirectUrl = new URL('/auth/login', request.url);
+      redirectUrl.searchParams.set('redirectTo', pathname);
+      return NextResponse.redirect(redirectUrl);
+    }
+  }
 
   // Add security headers to all responses
   response.headers.set("X-Frame-Options", "DENY");
@@ -21,7 +40,7 @@ export function middleware(request: NextRequest) {
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https: blob:",
-    "connect-src 'self' https://api.studio.nebius.com https://api.sarvam.ai https://api.perplexity.ai https://serpapi.com",
+    "connect-src 'self' https://api.studio.nebius.com https://api.sarvam.ai https://api.perplexity.ai https://serpapi.com https://*.supabase.co wss://*.supabase.co",
     "media-src 'self' blob:",
     "object-src 'none'",
     "base-uri 'self'",
@@ -64,7 +83,7 @@ export function middleware(request: NextRequest) {
   }
 
   // Block requests with suspicious query parameters
-  const url = new URL(request.url);
+  const urlObj = new URL(request.url);
   const suspiciousParams = [
     "union",
     "select",
@@ -88,8 +107,8 @@ export function middleware(request: NextRequest) {
     "shell=",
   ];
 
-  const queryString = url.search.toLowerCase();
-  const pathString = url.pathname.toLowerCase();
+  const queryString = urlObj.search.toLowerCase();
+  const pathString = urlObj.pathname.toLowerCase();
 
   for (const param of suspiciousParams) {
     if (queryString.includes(param) || pathString.includes(param)) {

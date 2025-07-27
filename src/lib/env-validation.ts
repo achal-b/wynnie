@@ -10,6 +10,11 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string().min(1, 'GOOGLE_CLIENT_ID is required'),
   GOOGLE_CLIENT_SECRET: z.string().min(1, 'GOOGLE_CLIENT_SECRET is required'),
   
+  // Supabase
+  NEXT_PUBLIC_SUPABASE_URL: z.string().url('NEXT_PUBLIC_SUPABASE_URL must be a valid URL').optional(),
+  NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1, 'NEXT_PUBLIC_SUPABASE_ANON_KEY is required').optional(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1, 'SUPABASE_SERVICE_ROLE_KEY is required').optional(),
+  
   // AI/ML APIs
   NEBIUS_API_KEY: z.string().min(1, 'NEBIUS_API_KEY is required'),
   ASSEMBLY_AI_API_KEY: z.string().min(1, 'ASSEMBLY_AI_API_KEY is required'),
