@@ -1,12 +1,4 @@
-import { NextRequest, NextRes      if (!fileValidation.valid) {
-        return NextResponse.json(
-          { error: 'File validation failed', details: fileValidation.errors },
-          { status: 400 }
-        );
-      }
-
-      // Check Assembly AI API key
-      if (!process.env.ASSEMBLY_AI_API_KEY) {'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { assemblyAI } from '@/lib/assembly-ai';
 import { prisma } from '@/lib/prisma';
 import { withSecurity, validateFileUpload } from '@/lib/security';
