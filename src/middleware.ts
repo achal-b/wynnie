@@ -2,24 +2,39 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClientForMiddleware } from '@/lib/supabase-server';
 
 export async function middleware(request: NextRequest) {
-  // Handle Supabase auth
-  const { supabase, response } = createClientForMiddleware(request);
+  // Skip Supabase auth handling if environment variables are not properly configured
+  const hasSupabaseConfig = process.env.NEXT_PUBLIC_SUPABASE_URL && 
+                           process.env.NEXT_PUBLIC_SUPABASE_URL !== 'https://placeholder.supabase.co' &&
+                           process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
+                           process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY !== 'placeholder-key';
 
-  // Refresh session if expired
-  await supabase.auth.getUser();
+  let response = NextResponse.next();
 
-  // Check if user is authenticated for protected routes
-  const pathname = request.nextUrl.pathname;
-  const isAuthRoute = pathname.startsWith('/auth/');
-  const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/profile');
+  if (hasSupabaseConfig) {
+    try {
+      // Handle Supabase auth
+      const { supabase, response: supabaseResponse } = createClientForMiddleware(request);
+      response = supabaseResponse;
 
-  if (isProtectedRoute && !isAuthRoute) {
-    const { data: { user } } = await supabase.auth.getUser();
-    
-    if (!user) {
-      const redirectUrl = new URL('/auth/login', request.url);
-      redirectUrl.searchParams.set('redirectTo', pathname);
-      return NextResponse.redirect(redirectUrl);
+      // Refresh session if expired
+      await supabase.auth.getUser();
+
+      // Check if user is authenticated for protected routes
+      const pathname = request.nextUrl.pathname;
+      const isAuthRoute = pathname.startsWith('/auth/');
+      const isProtectedRoute = pathname.startsWith('/dashboard') || pathname.startsWith('/profile');
+
+      if (isProtectedRoute && !isAuthRoute) {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (!user) {
+          const redirectUrl = new URL('/auth/login', request.url);
+          redirectUrl.searchParams.set('redirectTo', pathname);
+          return NextResponse.redirect(redirectUrl);
+        }
+      }
+    } catch (error) {
+      console.warn('Supabase middleware error (continuing):', error);
     }
   }
 
@@ -132,10 +147,13 @@ export const config = {
   matcher: [
     /*
      * Match all request paths except for the ones starting with:
+     * - api (api routes)
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - sw.js (service worker)
+     * - icons (icon files)
      */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sw.js|icons).*)",
   ],
 };

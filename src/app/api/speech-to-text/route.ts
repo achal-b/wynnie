@@ -10,7 +10,6 @@ export async function POST(request: NextRequest) {
       const formData = await req.formData();
       const audioFile = formData.get('audio') as File;
       const languageCode = formData.get('language_code') as string || 'en-US';
-      const withTimestamps = formData.get('with_timestamps') === 'true';
       const enableDiarization = formData.get('enable_diarization') === 'true';
 
       if (!audioFile) {

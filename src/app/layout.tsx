@@ -13,6 +13,7 @@ import { Transition } from "./transition";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider as SupabaseAuthProvider } from "@/contexts/SupabaseAuthContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -159,32 +160,34 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <AuthProvider>
-          <ChatProvider>
-            <CartProvider>
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="light"
-                enableSystem
-                disableTransitionOnChange
-              >
-                <LenisScroll />
-                <Transition>
-                  {children}
-                  <ToastContainer
-                    position="top-right"
-                    autoClose={3000}
-                    className="custom-toast-container"
-                    toastClassName="custom-toast"
-                    // bodyClassName="custom-toast-body"
-                  />
-                  <PWAInstallPrompt />
-                  <ServiceWorkerHandler />
-                  <PWAStatus />
-                  <PWADebugInfo />
-                </Transition>
-              </ThemeProvider>
-            </CartProvider>
-          </ChatProvider>
+          <SupabaseAuthProvider>
+            <ChatProvider>
+              <CartProvider>
+                <ThemeProvider
+                  attribute="class"
+                  defaultTheme="light"
+                  enableSystem
+                  disableTransitionOnChange
+                >
+                  <LenisScroll />
+                  <Transition>
+                    {children}
+                    <ToastContainer
+                      position="top-right"
+                      autoClose={3000}
+                      className="custom-toast-container"
+                      toastClassName="custom-toast"
+                      // bodyClassName="custom-toast-body"
+                    />
+                    <PWAInstallPrompt />
+                    <ServiceWorkerHandler />
+                    <PWAStatus />
+                    <PWADebugInfo />
+                  </Transition>
+                </ThemeProvider>
+              </CartProvider>
+            </ChatProvider>
+          </SupabaseAuthProvider>
         </AuthProvider>
       </body>
     </html>

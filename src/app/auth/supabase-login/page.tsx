@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import { useAuth } from '@/contexts/SupabaseAuthContext'
@@ -11,7 +11,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Loader2, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 
-export default function SupabaseLoginPage() {
+// Force dynamic rendering to avoid SSG issues with auth context
+export const dynamic = 'force-dynamic'
+
+function SupabaseLoginForm() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -175,5 +178,20 @@ export default function SupabaseLoginPage() {
         </CardContent>
       </Card>
     </div>
+  )
+}
+
+export default function SupabaseLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
+        <div className="flex items-center space-x-2">
+          <Loader2 className="h-6 w-6 animate-spin" />
+          <span>Loading...</span>
+        </div>
+      </div>
+    }>
+      <SupabaseLoginForm />
+    </Suspense>
   )
 }
